@@ -17,8 +17,8 @@ client.on('interactionCreate', async Interaction => {
         await Interaction.reply('Pong!');
     } else if (commandName === 'server') {
         await Interaction.reply(`Server name: ${Interaction.guild.name}\nTotal members: ${Interaction.guild.memberCount}\nCreated at: ${Interaction.guild.createdAt}`);
-    } else if (commandName === 'info') {
-        await Interaction.reply('User info.');
+    } else if (commandName === 'user') {
+        await Interaction.reply(`Your tag: ${Interaction.user.tag}\nYour id: ${Interaction.user.id}`);
     }
 });
 
