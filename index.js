@@ -8,17 +8,15 @@ client.once('ready', () => {
     console.log('Arete is online!');
 });
 
-client.on('interactionCreate', async Interaction => {
-    if (!Interaction.isCommand()) return;
+client.on('interactionCreate', async interaction => {
+    if (!interaction.isCommand()) return;
 
-    const { commandName } = Interaction;
+    const { commandName } = interaction;
 
     if (commandName === 'ping') {
-        await Interaction.reply('Pong!');
-    } else if (commandName === 'server') {
-        await Interaction.reply(`Server name: ${Interaction.guild.name}\nTotal members: ${Interaction.guild.memberCount}\nCreated at: ${Interaction.guild.createdAt}`);
-    } else if (commandName === 'user') {
-        await Interaction.reply(`Your tag: ${Interaction.user.tag}\nYour id: ${Interaction.user.id}`);
+        await interaction.reply('Pong!');
+    } else if (commandName === 'beep') {
+        await interaction.reply('Boop!')
     }
 });
 
