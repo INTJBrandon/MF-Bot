@@ -9,8 +9,11 @@ const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('
 
 for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
-    
-    client.commands.set(command.data.name, command);
+
+    // Checks if command file actually has proper code in it, if it doesn't it isn't set
+    if (Object.keys(command).length > 0) {
+        client.commands.set(command.data.name, command);
+    }
 }
 
 
@@ -21,12 +24,15 @@ client.once('ready', () => {
 client.on('interactionCreate', async interaction => {
     if (!interaction.isCommand()) return;
 
-    const { commandName } = interaction;
+    const command = client.commands.get(interaction.commandName);
 
-    if (commandName === 'ping') {
-        await interaction.reply('Pong!');
-    } else if (commandName === 'beep') {
-        await interaction.reply('Boop!')
+    if (!command) return;
+
+    try {
+        await command.execute(interaction);
+    } catch (error) {
+        console.error(error);
+        await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true});
     }
 });
 

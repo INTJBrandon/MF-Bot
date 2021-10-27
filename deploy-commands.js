@@ -4,12 +4,14 @@ const { Routes } = require('discord-api-types/v9');
 const { clientId, guildId, token } = require('./config.json')
 
 const commands = [];
-const commandFiles = fs.readFileSync('./commands').filter(file => file.endsWith('.js'));
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
-
-    commands.push(command.data.toJSON());
+    // Checks if command file actually has proper code in it, if it doesn't it isn't pushed to commands array
+    if (Object.keys(command).length > 0) {
+        commands.push(command.data.toJSON());
+    }
 }
 
 const rest = new REST({version: '9' }).setToken(token);
