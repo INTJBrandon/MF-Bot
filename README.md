@@ -1,0 +1,1 @@
+Private Bot for Discord server that I own.
