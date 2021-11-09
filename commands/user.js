@@ -8,7 +8,7 @@ module.exports = {
 		.setName('server')
 		.setDescription('Replies server information'),
 	async execute(interaction) {
-		await interaction.reply(`Server Name: ${Guild.name}`);
+		await interaction.reply(`Server Name: ${user.id}`);
         console.log(Guild)
 	},
 };
